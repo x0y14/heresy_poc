@@ -1,0 +1,51 @@
+﻿epidemic_heresy_ongoing_events = {
+	random_events = {
+		chance_of_no_event = 90
+
+		100 = epidemic_heresy_events.0001
+	}
+	effect = {
+		# LEGITIMACY LOSS FROM MAX INFECTION RATE IN CAPITAL
+		capital_province ?= {
+			if = {
+				limit = {
+					any_province_epidemic = { this = scope:epidemic }
+					province_infection_rate = {
+						epidemic = scope:epidemic
+						value >= 100
+					}
+					NOT = { has_variable = recent_infection_capital_var }
+				}
+				epidemic_endemic_capital_legitimacy_effect = yes
+				set_variable = {
+					name = recent_infection_capital_var
+					years = 2
+				}
+			}
+		}
+
+		# Trigger Black Death splash screen
+		if = {
+			limit = {	
+				any_realm_province = {
+					any_province_epidemic = {
+						epidemic_type.epidemic_trait = trait:bubonic_plague
+						outbreak_intensity = apocalyptic
+					}
+				}
+				NOT = {
+					has_character_flag = black_death_splash
+				}
+			}
+			if = { # Special Black Death event chain for DLC owners
+				limit = {
+					has_dlc_feature = legends_of_the_dead
+				}
+				trigger_event = epidemic_events.5900
+			}
+			else = { # We give you the default fullscreen thing
+				trigger_event = epidemic_events.1101
+			}
+		}
+	}
+}

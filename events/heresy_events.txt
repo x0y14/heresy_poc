@@ -1,0 +1,21 @@
+﻿namespace = epidemic_heresy_events
+
+epidemic_heresy_events.0001 = {
+	type = character_event
+	title = epidemic_heresy_events.0001.title
+	desc = epidemic_heresy_events.0001.desc
+	theme = plague
+	override_background = { reference = ce1_funeral_pyre }
+	override_effect_2d = {
+		reference = smoke
+	}
+
+	immediate = {
+		set_character_faith = faith:iconoclast
+		# add_trait = heresiarch
+	}
+
+	option = {
+		name = EXCELLENT
+	}
+}
